@@ -119,7 +119,7 @@ namespace Tool_Sharp
                 file.LoadFromFile(linkLabel1.Text);
                 file.SaveToFile(saveFileDialog1.FileName, FileFormat.PPTX);
             }
-            label1.Text = ("File is Convented!");
+            label1.Text = ("File is convented !");
             linkLabel2.Text = saveFileDialog1.FileName;
         }
     }
