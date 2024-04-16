@@ -97,68 +97,78 @@ namespace Tool_Sharp
             {
 
                 //Create a PdfDocument object
+                
             PdfDocument doc = new PdfDocument();
+                
+
+
             //Set the margins
             doc.PageSettings.SetMargins(20);
-            //Get file paths in a string array
-            string[] picFiles = Directory.GetFiles(linkLabel1.Text);
- 
-            //Initialize x and y coordinate
-            int x = 0;
-            int y = 0;
-            //Specify the spacing between two images
-            int whiteSpacing = 5;
+                
+
+
             //Add a page
             PdfPageBase page = doc.Pages.Add();
-            //Loop through the images files
-            for (int i = 0; i < picFiles.Length; i++)
+                
+
+
+            //Load an image
+            Image image = Image.FromFile(openFileDialog1.FileName);
+                
+
+
+            //Get the image width and height
+            float width = image.PhysicalDimension.Width;
+            float height = image.PhysicalDimension.Height;
+
+
+            //Declare a PdfImage variable
+            PdfImage pdfImage;
+                
+             //If the image width is larger than page width
+
+            if (width > page.Canvas.ClientSize.Width)
+                    
             {
-                //Load an image 
-                Image image = Image.FromFile(picFiles[i]);
-                //Get the image width and height
-                float width = image.PhysicalDimension.Width;
-                float height = image.PhysicalDimension.Height;
-                //Declare a PdfImage variable
-                PdfImage pdfImage;
-                //If the image width is larger than page width
-                if (width > page.Canvas.ClientSize.Width)
-                {
-                    //Resize the image to make it to fit to the page width
-                    float widthFitRate = width / page.Canvas.ClientSize.Width;
-                    Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
-                    Bitmap scaledImage = new Bitmap(image, size);
-                    //Load the scaled image to the PdfImage object
-                    pdfImage = PdfImage.FromImage(scaledImage);
-                }
-                else
-                {
-                    //Load the original image to the PdfImage object
-                    pdfImage = PdfImage.FromImage(image);
-                }
-                //If the image height is less than the height of the left space of a page
-                if (pdfImage.Height < page.Canvas.ClientSize.Height - y) 
-                {
-                    //Draw image at the specified position
-                    page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
-                    y = y + pdfImage.Height + whiteSpacing;
-        
-                }
-                else
-                {
-                    //Add another page
-                    page = doc.Pages.Add();
-                    y = 0;
-                    //Draw image at the specified position
-                    page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
-                    y = y + pdfImage.Height + whiteSpacing;
-}
-       
+                    
+                //Resize the image to make it to fit to the page width
+
+                float widthFitRate = width / page.Canvas.ClientSize.Width;
+                    
+                Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
+                    
+                Bitmap scaledImage = new Bitmap(image, size);
+                    
+
+
+
+                //Load the scaled image to the PdfImage object
+
+                pdfImage = PdfImage.FromImage(scaledImage);
+                    
+            } else
+                    
+            {
+                //Load the original image to the PdfImage objec
+                pdfImage = PdfImage.FromImage(image);
             }
+
+
+            //Draw image at (0, 0)
+            page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
+
+
             //Save to file
+
             doc.SaveToFile(saveFileDialog1.FileName);
+
                 System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+
+
             }
- }
+
+
+        }
         
 
         private void eXITToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,66 +190,74 @@ namespace Tool_Sharp
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
+
                 //Create a PdfDocument object
+
                 PdfDocument doc = new PdfDocument();
+
+
+
                 //Set the margins
                 doc.PageSettings.SetMargins(20);
-                //Get file paths in a string array
-                string[] picFiles = Directory.GetFiles(linkLabel1.Text);
 
-                //Initialize x and y coordinate
-                int x = 0;
-                int y = 0;
-                //Specify the spacing between two images
-                int whiteSpacing = 5;
+
+
                 //Add a page
                 PdfPageBase page = doc.Pages.Add();
-                //Loop through the images files
-                for (int i = 0; i < picFiles.Length; i++)
-                {
-                    //Load an image 
-                    Image image = Image.FromFile(picFiles[i]);
-                    //Get the image width and height
-                    float width = image.PhysicalDimension.Width;
-                    float height = image.PhysicalDimension.Height;
-                    //Declare a PdfImage variable
-                    PdfImage pdfImage;
-                    //If the image width is larger than page width
-                    if (width > page.Canvas.ClientSize.Width)
-                    {
-                        //Resize the image to make it to fit to the page width
-                        float widthFitRate = width / page.Canvas.ClientSize.Width;
-                        Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
-                        Bitmap scaledImage = new Bitmap(image, size);
-                        //Load the scaled image to the PdfImage object
-                        pdfImage = PdfImage.FromImage(scaledImage);
-                    }
-                    else
-                    {
-                        //Load the original image to the PdfImage object
-                        pdfImage = PdfImage.FromImage(image);
-                    }
-                    //If the image height is less than the height of the left space of a page
-                    if (pdfImage.Height < page.Canvas.ClientSize.Height - y)
-                    {
-                        //Draw image at the specified position
-                        page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
-                        y = y + pdfImage.Height + whiteSpacing;
 
-                    }
-                    else
-                    {
-                        //Add another page
-                        page = doc.Pages.Add();
-                        y = 0;
-                        //Draw image at the specified position
-                        page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
-                        y = y + pdfImage.Height + whiteSpacing;
-                    }
+
+
+                //Load an image
+                Image image = Image.FromFile(openFileDialog1.FileName);
+
+
+
+                //Get the image width and height
+                float width = image.PhysicalDimension.Width;
+                float height = image.PhysicalDimension.Height;
+
+
+                //Declare a PdfImage variable
+                PdfImage pdfImage;
+
+                //If the image width is larger than page width
+
+                if (width > page.Canvas.ClientSize.Width)
+
+                {
+
+                    //Resize the image to make it to fit to the page width
+
+                    float widthFitRate = width / page.Canvas.ClientSize.Width;
+
+                    Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
+
+                    Bitmap scaledImage = new Bitmap(image, size);
+
+
+
+
+                    //Load the scaled image to the PdfImage object
+
+                    pdfImage = PdfImage.FromImage(scaledImage);
 
                 }
+                else
+
+                {
+                    //Load the original image to the PdfImage objec
+                    pdfImage = PdfImage.FromImage(image);
+                }
+
+
+                //Draw image at (0, 0)
+                page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
+
+
                 //Save to file
+
                 doc.SaveToFile(saveFileDialog1.FileName);
+
                 System.Diagnostics.Process.Start(saveFileDialog1.FileName);
             }
             }
