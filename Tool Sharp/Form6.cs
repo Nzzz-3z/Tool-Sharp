@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Spire.Pdf.Graphics;
+using Spire.Pdf;
 using System.IO;
-using GemBox.Pdf.Content;
-using GemBox.Pdf;
 using Tool_Sharp.Properties;
 
 
@@ -95,32 +95,71 @@ namespace Tool_Sharp
             saveFileDialog1.Filter = ("Pdf file |*.pdf");
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // If using the Professional version, put your serial key below.
-                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
-                using (var document = new PdfDocument())
+                //Create a PdfDocument object
+            PdfDocument doc = new PdfDocument();
+            //Set the margins
+            doc.PageSettings.SetMargins(20);
+            //Get file paths in a string array
+            string[] picFiles = Directory.GetFiles(linkLabel1.Text);
+ 
+            //Initialize x and y coordinate
+            int x = 0;
+            int y = 0;
+            //Specify the spacing between two images
+            int whiteSpacing = 5;
+            //Add a page
+            PdfPageBase page = doc.Pages.Add();
+            //Loop through the images files
+            for (int i = 0; i < picFiles.Length; i++)
+            {
+                //Load an image 
+                Image image = Image.FromFile(picFiles[i]);
+                //Get the image width and height
+                float width = image.PhysicalDimension.Width;
+                float height = image.PhysicalDimension.Height;
+                //Declare a PdfImage variable
+                PdfImage pdfImage;
+                //If the image width is larger than page width
+                if (width > page.Canvas.ClientSize.Width)
                 {
-                    // Add a page.
-                    var page = document.Pages.Add();
-
-                    // Load the image from a file.
-                    var image = PdfImage.Load(linkLabel1.Text);
-
-                    // Set the location of the bottom-left corner of the image.
-                    // We want the top-left corner of the image to be at location (50, 50)
-                    // from the top-left corner of the page.
-                    // NOTE: In PDF, location (0, 0) is at the bottom-left corner of the page
-                    // and the positive y axis extends vertically upward.
-                    double x = 0.2, y = page.CropBox.Top - 0.2 - image.Size.Height;
-
-                    // Draw the image to the page.
-                    page.Content.DrawImage(image, new PdfPoint(x, y));
-
-                    document.Save(saveFileDialog1.FileName);
-                    System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+                    //Resize the image to make it to fit to the page width
+                    float widthFitRate = width / page.Canvas.ClientSize.Width;
+                    Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
+                    Bitmap scaledImage = new Bitmap(image, size);
+                    //Load the scaled image to the PdfImage object
+                    pdfImage = PdfImage.FromImage(scaledImage);
                 }
+                else
+                {
+                    //Load the original image to the PdfImage object
+                    pdfImage = PdfImage.FromImage(image);
+                }
+                //If the image height is less than the height of the left space of a page
+                if (pdfImage.Height < page.Canvas.ClientSize.Height - y) 
+                {
+                    //Draw image at the specified position
+                    page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
+                    y = y + pdfImage.Height + whiteSpacing;
+        
+                }
+                else
+                {
+                    //Add another page
+                    page = doc.Pages.Add();
+                    y = 0;
+                    //Draw image at the specified position
+                    page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
+                    y = y + pdfImage.Height + whiteSpacing;
+}
+       
             }
-        }
+            //Save to file
+            doc.SaveToFile(saveFileDialog1.FileName);
+                System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+            }
+ }
+        
 
         private void eXITToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -140,32 +179,71 @@ namespace Tool_Sharp
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // If using the Professional version, put your serial key below.
-                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
-                using (var document = new PdfDocument())
+                //Create a PdfDocument object
+                PdfDocument doc = new PdfDocument();
+                //Set the margins
+                doc.PageSettings.SetMargins(20);
+                //Get file paths in a string array
+                string[] picFiles = Directory.GetFiles(linkLabel1.Text);
+
+                //Initialize x and y coordinate
+                int x = 0;
+                int y = 0;
+                //Specify the spacing between two images
+                int whiteSpacing = 5;
+                //Add a page
+                PdfPageBase page = doc.Pages.Add();
+                //Loop through the images files
+                for (int i = 0; i < picFiles.Length; i++)
                 {
-                    // Add a page.
-                    var page = document.Pages.Add();
+                    //Load an image 
+                    Image image = Image.FromFile(picFiles[i]);
+                    //Get the image width and height
+                    float width = image.PhysicalDimension.Width;
+                    float height = image.PhysicalDimension.Height;
+                    //Declare a PdfImage variable
+                    PdfImage pdfImage;
+                    //If the image width is larger than page width
+                    if (width > page.Canvas.ClientSize.Width)
+                    {
+                        //Resize the image to make it to fit to the page width
+                        float widthFitRate = width / page.Canvas.ClientSize.Width;
+                        Size size = new Size((int)(width / widthFitRate), (int)(height / widthFitRate));
+                        Bitmap scaledImage = new Bitmap(image, size);
+                        //Load the scaled image to the PdfImage object
+                        pdfImage = PdfImage.FromImage(scaledImage);
+                    }
+                    else
+                    {
+                        //Load the original image to the PdfImage object
+                        pdfImage = PdfImage.FromImage(image);
+                    }
+                    //If the image height is less than the height of the left space of a page
+                    if (pdfImage.Height < page.Canvas.ClientSize.Height - y)
+                    {
+                        //Draw image at the specified position
+                        page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
+                        y = y + pdfImage.Height + whiteSpacing;
 
-                    // Load the image from a file.
-                    var image = PdfImage.Load(linkLabel1.Text);
+                    }
+                    else
+                    {
+                        //Add another page
+                        page = doc.Pages.Add();
+                        y = 0;
+                        //Draw image at the specified position
+                        page.Canvas.DrawImage(pdfImage, x, y, pdfImage.Width, pdfImage.Height);
+                        y = y + pdfImage.Height + whiteSpacing;
+                    }
 
-                    // Set the location of the bottom-left corner of the image.
-                    // We want the top-left corner of the image to be at location (50, 50)
-                    // from the top-left corner of the page.
-                    // NOTE: In PDF, location (0, 0) is at the bottom-left corner of the page
-                    // and the positive y axis extends vertically upward.
-                    double x = 50, y = page.CropBox.Top - 50 - image.Size.Height;
-
-                    // Draw the image to the page.
-                    page.Content.DrawImage(image, new PdfPoint(x, y));
-
-                    document.Save(saveFileDialog1.FileName);
-                    System.Diagnostics.Process.Start(saveFileDialog1.FileName);
                 }
+                //Save to file
+                doc.SaveToFile(saveFileDialog1.FileName);
+                System.Diagnostics.Process.Start(saveFileDialog1.FileName);
+            }
             }
         }
     }
-}
+
 
