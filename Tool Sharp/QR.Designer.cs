@@ -69,13 +69,14 @@
             // exportQRCoToolStripMenuItem
             // 
             this.exportQRCoToolStripMenuItem.Name = "exportQRCoToolStripMenuItem";
-            this.exportQRCoToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.exportQRCoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportQRCoToolStripMenuItem.Text = "Export QR code";
+            this.exportQRCoToolStripMenuItem.Click += new System.EventHandler(this.exportQRCoToolStripMenuItem_Click);
             // 
             // eXITToolStripMenuItem
             // 
             this.eXITToolStripMenuItem.Name = "eXITToolStripMenuItem";
-            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.eXITToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eXITToolStripMenuItem.Text = "EXIT";
             this.eXITToolStripMenuItem.Click += new System.EventHandler(this.eXITToolStripMenuItem_Click);
             // 

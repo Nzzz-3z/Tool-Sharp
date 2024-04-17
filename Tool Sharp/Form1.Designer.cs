@@ -46,6 +46,7 @@
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -59,7 +60,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -173,6 +174,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button14);
             this.panel1.Controls.Add(this.button13);
             this.panel1.Controls.Add(this.button12);
             this.panel1.Controls.Add(this.button11);
@@ -193,6 +195,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(559, 440);
             this.panel1.TabIndex = 1;
+            // 
+            // button13
+            // 
+            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.button13.Image = ((System.Drawing.Image)(resources.GetObject("button13.Image")));
+            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.Location = new System.Drawing.Point(12, 386);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(269, 49);
+            this.button13.TabIndex = 13;
+            this.button13.Text = "QR code generator";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button12
             // 
@@ -361,18 +376,18 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button13
+            // button14
             // 
-            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button13.Image = ((System.Drawing.Image)(resources.GetObject("button13.Image")));
-            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.Location = new System.Drawing.Point(12, 386);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(269, 49);
-            this.button13.TabIndex = 13;
-            this.button13.Text = "QR code generator";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.button14.Image = ((System.Drawing.Image)(resources.GetObject("button14.Image")));
+            this.button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button14.Location = new System.Drawing.Point(286, 386);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(269, 49);
+            this.button14.TabIndex = 14;
+            this.button14.Text = "Barcode generator";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // Form1
             // 
@@ -430,6 +445,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
     }
 }
 
