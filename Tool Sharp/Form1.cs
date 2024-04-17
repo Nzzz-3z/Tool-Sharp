@@ -94,6 +94,7 @@ namespace Tool_Sharp
                 button10.Font = fontDialog1.Font;
                 button11.Font = fontDialog1.Font;
                 button12.Font = fontDialog1.Font;
+                button13.Font = fontDialog1.Font;
             }
             else
             {
@@ -170,6 +171,12 @@ namespace Tool_Sharp
         {
             Form14 form14 = new Form14();
             form14.Show();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            QR qR = new QR();
+            qR.Show();
         }
     }
 }
