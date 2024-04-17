@@ -1,1 +1,2 @@
 New Chnages 
+1 changes -- fix bug in image to pad |this bug make image is not center in pdf
