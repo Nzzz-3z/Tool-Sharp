@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spire.Barcode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,8 +37,25 @@ namespace Tool_Sharp
            
         private void button2_Click(object sender, EventArgs e)
         {
-            Zen.Barcode.CodeQrBarcodeDraw QR = new Zen.Barcode.CodeQrBarcodeDraw();
-            pictureBox1.Image = QR.Draw(richTextBox1.Text , 100);
+            BarcodeSettings settings = new BarcodeSettings();
+            
+            settings.Type = BarCodeType.QRCode;
+
+            settings.Data = (richTextBox1.Text);
+            
+            settings.Data2D = (richTextBox1.Text);
+
+            settings.QRCodeDataMode = QRCodeDataMode.AlphaNumber;
+            
+            settings.X = 1.0f;
+            
+            settings.QRCodeECL = QRCodeECL.H;
+
+            BarCodeGenerator generator = new BarCodeGenerator(settings);
+
+            pictureBox1.Image = generator.GenerateImage();
+            
+
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

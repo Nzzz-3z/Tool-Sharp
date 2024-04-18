@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spire.Barcode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,8 +25,14 @@ namespace Tool_Sharp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Zen.Barcode.Code128BarcodeDraw barcode = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
-            pictureBox1.Image = barcode.Draw(richTextBox1.Text, 50);
+            BarcodeSettings bs = new BarcodeSettings();
+
+            bs.Type = BarCodeType.Code128;
+            bs.Data = (richTextBox1.Text);
+
+            BarCodeGenerator bg = new BarCodeGenerator(bs);
+
+            pictureBox1.Image = bg.GenerateImage();
 
         }
 
@@ -55,6 +62,11 @@ namespace Tool_Sharp
             }
             linkLabel1.Text = saveFileDialog1.FileName;
             MessageBox.Show("Barcode is saved to image | CLick on purple text to open image", "Image saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
 
         }
     }
